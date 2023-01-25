@@ -1,8 +1,7 @@
+import InOut from '@/components/InOut'
 import SignIn from '@/components/SignIn'
-import { app, auth, firebaseConfig } from '@/firebaseConfig'
-import { Button, Heading, VStack } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 import Head from 'next/head'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 export default function Home() {
 	return (
@@ -14,7 +13,8 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<VStack flex={1} py={8} bg={'pink.100'}>
-				<SignIn />
+				{/* <SignIn /> */}
+				<InOut />
 			</VStack>
 		</>
 	)
