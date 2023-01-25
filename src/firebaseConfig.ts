@@ -23,7 +23,7 @@ export const uiConfig = {
 	// Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
 	signInSuccessUrl: '/signedIn',
 	signInOptions: [GoogleAuthProvider.PROVIDER_ID],
-	callbacks: {
-		signInSuccessWithAuthResult: () => false,
-	},
+	// callbacks: {
+	// 	signInSuccessWithAuthResult: () => false,
+	// },
 }

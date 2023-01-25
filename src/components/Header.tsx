@@ -4,7 +4,7 @@ import Login from './Login'
 
 export default function Header() {
 	return (
-		<HStack bg={'pink.100'} py={2} px={4}>
+		<HStack bg={'pink.100'} height={50}>
 			<Login />
 		</HStack>
 	)

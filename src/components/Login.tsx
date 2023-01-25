@@ -28,29 +28,13 @@ export default function Login() {
 	const [signedOut, setSignedOut] = useState(false)
 
 	if (!user && !loading) {
-		return (
-			<HStack flex={'1'}>
-				<Button onClick={onOpen} colorScheme={'red'}>
-					{text}
-				</Button>
-				<Modal isOpen={isOpen} onClose={onClose}>
-					<ModalOverlay />
-					<ModalContent>
-						<ModalHeader textAlign={'center'}>Sign in</ModalHeader>
-						<ModalCloseButton />
-						<ModalBody>
-							<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
-						</ModalBody>
-					</ModalContent>
-				</Modal>
-			</HStack>
-		)
+		return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
 	}
 
-	if (user && signedOut === false) {
+	if (user && !signedOut) {
 		return (
-			<HStack flex={'1'}>
-				<Text color={'red'}>{text}</Text>
+			<HStack flex={'1'} px={4}>
+				<Text color={'Black'}>{text}</Text>
 				<Spacer />
 				<Link href={'/'}>
 					<Button
