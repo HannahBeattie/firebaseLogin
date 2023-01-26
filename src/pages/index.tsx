@@ -1,10 +1,18 @@
 import SignIn from '@/components/SignIn'
-import { useDbValue } from '@/lib/fbDatabase'
+import { useDbValue, useHullo } from '@/lib/fbDatabase'
 import { Button, Heading, HStack, Image, Spacer, Text, VStack } from '@chakra-ui/react'
 import Head from 'next/head'
 
 export default function Home() {
 	const { value: hulloVal, loading, set: setHullo, error } = useDbValue('hullo')
+
+	// const untypedHullo = useDbValue('hullo')
+
+	// const typedHullo = useDbValue<string>('hullo')
+	// typedHullo.set({ this: 'is an object' })
+
+	// const typedHullo = useHullo()
+	// typedHullo.set({ this: 'is an object' })
 
 	return (
 		<>

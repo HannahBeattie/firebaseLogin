@@ -1,18 +1,20 @@
 import { getDatabase, onValue, ref, set } from 'firebase/database'
 import { useEffect, useState } from 'react'
 
-const database = () => getDatabase()
+/** `useDbValue` returns the value for a given path in the realtime database,
+ * as well as loading and error states and a "set" function to update the value
+ * @param {string} dbPath - The "directory-like" path to a resource in the database
+ */
+export function useDbValue<T = any>(dbPath: string) {
+	const dbRef = ref(getDatabase(), dbPath)
 
-export function useDbValue(dbPath: string) {
-	const dbRef = ref(database(), dbPath)
-
-	const setFn = async (value: any) => {
+	const setFn = async (value: T) => {
 		console.log(`(useDbValue) Setting "${dbPath} to`, value)
 		set(dbRef, value)
 	}
 
 	const [resp, setResp] = useState<{
-		value?: any
+		value?: T
 		loading: boolean
 		set: typeof setFn
 		error?: Error
@@ -49,4 +51,15 @@ export function useDbValue(dbPath: string) {
 	}, [])
 
 	return resp
+}
+
+export function useHullo() {
+	return useDbValue<string>('hullo')
+}
+
+export function useMyObj() {
+	return useDbValue<{
+		mikey: string
+		stretch: string
+	}>('myObj')
 }
