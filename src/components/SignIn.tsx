@@ -1,5 +1,5 @@
 import { app, getAppAuth, uiConfig } from '@/firebaseConfig'
-import { Text } from '@chakra-ui/react'
+import { Link, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
@@ -19,5 +19,9 @@ export default function SignIn() {
 		return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
 	}
 
-	return null
+	return (
+		<Link href={'/signedIn'}>
+			<Text>{text}</Text>
+		</Link>
+	)
 }

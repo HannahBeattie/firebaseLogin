@@ -14,7 +14,7 @@ export default function Home() {
 			</Head>
 			<VStack flex={1} bg={'pink.200'} color={'red'} pt={16} spacing={8}>
 				<Heading fontSize={'8xl'}>Welcome</Heading>
-				<Text fontSize={'xl'}>Please Log-in to continue</Text>
+
 				<SignIn />
 
 				<HulloDatabase />
