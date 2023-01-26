@@ -1,5 +1,5 @@
 import { app, getAppAuth, uiConfig } from '@/firebaseConfig'
-import { Link, Text } from '@chakra-ui/react'
+import { Link, Spinner, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
@@ -12,11 +12,16 @@ export default function SignIn() {
 	const text = name ? `Hello ${name}` : 'sign in'
 
 	if (loading) {
-		return <Text>Please Wait</Text>
+		return '...'
 	}
 
 	if (!user) {
-		return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+		return (
+			<VStack spacing={0}>
+				<Text>Please log in to continue</Text>
+				<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+			</VStack>
+		)
 	}
 
 	return (
