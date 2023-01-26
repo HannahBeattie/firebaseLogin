@@ -13,12 +13,23 @@ import {
 	Toast,
 	VStack,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
+function useRedirectIfNotLoggedIn() {
+	const auth = getAppAuth()
+	const [user, loading, error] = useAuthState(auth)
+	const router = useRouter()
+	if (!user && !loading) {
+		router.replace('/')
+	}
+}
+
 export default function SignedIn() {
+	useRedirectIfNotLoggedIn()
 	const { user } = useAuthContext()
 	const auth = getAppAuth()
-	const [loading, error] = useAuthState(auth)
+
 	console.log('user is:', user?.displayName)
 	const name = user?.displayName ?? ''
 	const url = user?.photoURL ? user?.photoURL : ''
