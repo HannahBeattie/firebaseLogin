@@ -17,8 +17,7 @@ import { useRouter } from 'next/router'
 import { useAuthState } from 'react-firebase-hooks/auth'
 // import { Firestore, getFirestore } from 'firebase/firestore'
 // import { collection, doc, setDoc } from 'firebase/firestore'
-
-import '@/lib/fbDatabase'
+import { useDbValue } from '@/lib/fbDatabase'
 
 function useRedirectIfNotLoggedIn() {
 	const auth = getAppAuth()
@@ -34,13 +33,15 @@ function useRedirectIfNotLoggedIn() {
 export default function SignedIn() {
 	useRedirectIfNotLoggedIn()
 	const { user } = useAuthContext()
-	const auth = getAppAuth()
+	// const auth = getAppAuth()
+	const { value: hulloVal, loading } = useDbValue('hullo')
 
 	console.log('user is:', user?.displayName)
 	const name = user?.displayName ?? ''
 	const url = user?.photoURL ? user?.photoURL : ''
 	return (
 		<VStack flex={1} py={10} spacing={10} bg={'pink.100'} color={'red'}>
+			<Heading>Hullo is: {loading ? 'loading' : hulloVal}</Heading>
 			{!user && (
 				<VStack flex={1} justifyContent={'center'}>
 					<Spinner
