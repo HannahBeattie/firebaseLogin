@@ -1,19 +1,9 @@
+import HulloDatabase from '@/components/HulloDatabase'
 import SignIn from '@/components/SignIn'
-import { useDbValue, useHullo } from '@/lib/fbDatabase'
-import { Button, Heading, HStack, Image, Spacer, Text, VStack } from '@chakra-ui/react'
+import { Heading, Image, Spacer, Text, VStack } from '@chakra-ui/react'
 import Head from 'next/head'
 
 export default function Home() {
-	const { value: hulloVal, loading, set: setHullo, error } = useDbValue('hullo')
-
-	// const untypedHullo = useDbValue('hullo')
-
-	// const typedHullo = useDbValue<string>('hullo')
-	// typedHullo.set({ this: 'is an object' })
-
-	// const typedHullo = useHullo()
-	// typedHullo.set({ this: 'is an object' })
-
 	return (
 		<>
 			<Head>
@@ -27,24 +17,7 @@ export default function Home() {
 				<Text fontSize={'xl'}>Please Log-in to continue</Text>
 				<SignIn />
 
-				{error && <Text>Error! {`${error}`}</Text>}
-				<Heading color='purple.700'>Hullo is: {loading ? 'loading' : hulloVal}</Heading>
-				<HStack>
-					<Button
-						variant='solid'
-						colorScheme='blue'
-						onClick={() => setHullo(hulloVal + '!')}
-					>
-						More excited!
-					</Button>
-					<Button
-						variant='solid'
-						colorScheme='orange'
-						onClick={() => setHullo(hulloVal.replace(/!/, ''))}
-					>
-						Less excited!
-					</Button>
-				</HStack>
+				<HulloDatabase />
 
 				<Spacer />
 				<Image src={'/ground.png'} alt={'An image of a grassy hill'} />
