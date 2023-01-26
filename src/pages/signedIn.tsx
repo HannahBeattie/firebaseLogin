@@ -16,6 +16,7 @@ export default function SignedIn() {
 	return (
 		<VStack flex={1} py={10} spacing={10} bg={'pink.100'} color={'red'}>
 			<GreetUser url={url} name={name} user={user} />
+			<Mood />
 		</VStack>
 	)
 }
