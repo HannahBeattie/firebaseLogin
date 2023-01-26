@@ -1,3 +1,4 @@
+import { app } from '@/firebaseConfig'
 import { getAuth, User } from 'firebase/auth'
 import React, { FC, PropsWithChildren, useContext, useEffect, useState } from 'react'
 
@@ -7,7 +8,7 @@ type Ctx = {
 	user: UserType
 }
 
-const auth = getAuth()
+const auth = getAuth(app)
 export const AuthContext = React.createContext<Ctx>({ user: null })
 
 export function useAuthContext() {

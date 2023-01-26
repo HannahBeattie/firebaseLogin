@@ -10,7 +10,6 @@ export default function App({ Component, pageProps }: AppProps) {
 			<ChakraProvider>
 				<VStack minH={'100vh'} alignItems={'stretch'} spacing={0}>
 					<Header />
-
 					<Component {...pageProps} />
 				</VStack>
 			</ChakraProvider>

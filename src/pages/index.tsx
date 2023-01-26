@@ -1,6 +1,9 @@
+import GoogleSignIn from '@/components/GoogleSignIn'
 import Login from '@/components/Login'
-import { VStack } from '@chakra-ui/react'
+import { getAppAuth, uiConfig } from '@/firebaseConfig'
+import { Heading, VStack } from '@chakra-ui/react'
 import Head from 'next/head'
+import { StyledFirebaseAuth } from 'react-firebaseui'
 
 export default function Home() {
 	return (
@@ -11,7 +14,10 @@ export default function Home() {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<VStack flex={1} bg={'gray.900'}></VStack>
+			<VStack flex={1} bg={'gray.900'} py={8}>
+				<Heading fontSize={'8xl'}>Welcome</Heading>
+				<GoogleSignIn />
+			</VStack>
 		</>
 	)
 }
