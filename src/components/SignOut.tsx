@@ -8,14 +8,16 @@ export default function SignOut() {
 	const auth = getAppAuth()
 	const [user, loading, error] = useAuthState(auth)
 	const name = user?.displayName
-	const text = name ? `Hello ${name}` : 'sign in'
+	const text = name ? `${name}` : 'sign in'
 
 	return (
 		<HStack flex={'1'} px={4}>
-			<Text color={'Black'}>{text}</Text>
+			<Text color={'red'} fontSize={'xl'}>
+				{text}
+			</Text>
 			<Spacer />
 			<Button
-				colorScheme={'red'}
+				colorScheme={'white'}
 				onClick={() => {
 					router.push('/')
 					auth.signOut()

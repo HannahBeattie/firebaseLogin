@@ -7,6 +7,7 @@ import { GoogleAuthProvider } from 'firebase/auth'
 export const firebaseConfig = {
 	apiKey: 'AIzaSyBLB4w0g4MDpez9Cficpm7RU1BEi_YWyS4',
 	authDomain: 'typeme-d7a01.firebaseapp.com',
+	databaseURL: 'https://typeme-d7a01-default-rtdb.asia-southeast1.firebasedatabase.app',
 	projectId: 'typeme-d7a01',
 	storageBucket: 'typeme-d7a01.appspot.com',
 	messagingSenderId: '628433315898',
