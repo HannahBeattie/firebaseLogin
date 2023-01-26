@@ -4,7 +4,7 @@ import { Button, Heading, HStack, Image, Spacer, Text, VStack } from '@chakra-ui
 import Head from 'next/head'
 
 export default function Home() {
-	const { value: hulloVal, loading, set: setHullo } = useDbValue('hullo')
+	const { value: hulloVal, loading, set: setHullo, error } = useDbValue('hullo')
 
 	return (
 		<>
@@ -19,6 +19,7 @@ export default function Home() {
 				<Text fontSize={'xl'}>Please Log-in to continue</Text>
 				<SignIn />
 
+				{error && <Text>Error! {`${error}`}</Text>}
 				<Heading color='purple.700'>Hullo is: {loading ? 'loading' : hulloVal}</Heading>
 				<HStack>
 					<Button
