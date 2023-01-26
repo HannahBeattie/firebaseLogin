@@ -31,12 +31,21 @@ export function useDbValue<T = any>(dbPath: string) {
 				// Got a new value
 				const value = snap.val() // get the value off of the "database snapshot"
 				console.log(`(useDbValue) New value for "${dbPath}":`, value)
-				setResp((prevResp) => ({ ...prevResp, value, loading: false, error: undefined })) // Update the "resp" state with the new value
+				setResp((prevResp) => ({
+					...prevResp,
+					value,
+					loading: false,
+					error: undefined,
+				})) // Update the "resp" state with the new value
 			},
 			(err) => {
 				// Got an error
 				console.error(`(useDbValue) There was an error getting value for "${dbPath}":`, err)
-				setResp((prevResp) => ({ ...prevResp, loading: false, error: err }))
+				setResp((prevResp) => ({
+					...prevResp,
+					loading: false,
+					error: err,
+				}))
 			}
 		)
 
@@ -51,15 +60,4 @@ export function useDbValue<T = any>(dbPath: string) {
 	}, [])
 
 	return resp
-}
-
-export function useHullo() {
-	return useDbValue<string>('hullo')
-}
-
-export function useMyObj() {
-	return useDbValue<{
-		mikey: string
-		stretch: string
-	}>('myObj')
 }

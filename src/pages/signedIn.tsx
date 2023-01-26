@@ -1,6 +1,7 @@
 import { getAppAuth } from '@/firebaseConfig'
 import { useAuthContext } from '@/lib/AuthContext'
-import { Avatar, Heading, HStack, Spinner, VStack } from '@chakra-ui/react'
+import { getUid } from '@/lib/userData'
+import { Avatar, HStack, Heading, Spinner, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
@@ -17,7 +18,9 @@ function useRedirectIfNotLoggedIn() {
 export default function SignedIn() {
 	useRedirectIfNotLoggedIn()
 	const { user } = useAuthContext()
-	console.log('user is:', user?.displayName)
+	const uid = getUid(user)
+
+	console.log('user is:', user?.displayName, `(uid=${uid})`)
 	const name = user?.displayName ?? ''
 	const url = user?.photoURL ? user?.photoURL : ''
 	return (
