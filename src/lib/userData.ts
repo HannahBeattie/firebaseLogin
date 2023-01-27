@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useAuthContext, UserType } from './AuthContext'
 import { useDbValue } from './fbDatabase'
 
+import { IconType } from 'react-icons'
 //
 // Firebase auth data
 //
@@ -21,10 +22,11 @@ import { useDbValue } from './fbDatabase'
 //
 // User-specific app data stored in the database
 //
-export type Mood = {
+export type MoodData = {
 	label: string
 
 	idx?: number
+	// icon?: IconType
 
 	/** timestamp is in milliseconds since epoch
 	 * - use `+new Date()` to assign the current timestamp
@@ -34,7 +36,7 @@ export type Mood = {
 }
 
 export type UserData = {
-	moods: Mood[]
+	moods: MoodData[]
 }
 
 export function useUserData() {

@@ -1,27 +1,46 @@
-import { useAuthContext } from '@/lib/AuthContext'
 import { useUserData } from '@/lib/userData'
-import { Box, Button, HStack, Icon, IconProps, Text, VStack } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import {
+	Box,
+	Button,
+	Container,
+	Grid,
+	Heading,
+	HStack,
+	Icon,
+	SimpleGrid,
+	Stack,
+	TagLabel,
+	Text,
+	Tooltip,
+	VStack,
+} from '@chakra-ui/react'
+import { useState } from 'react'
+import { IconType } from 'react-icons'
 import { MdMoodBad } from 'react-icons/md'
 import {
-	TbMoodNervous,
-	TbMoodCry,
 	TbMoodConfuzed,
+	TbMoodCry,
 	TbMoodEmpty,
-	TbMoodSuprised,
-	TbMoodSmile,
 	TbMoodHappy,
+	TbMoodNervous,
+	TbMoodSmile,
+	TbMoodSuprised,
 } from 'react-icons/tb'
 
-const icons = [
-	MdMoodBad,
-	TbMoodNervous,
-	TbMoodCry,
-	TbMoodConfuzed,
-	TbMoodEmpty,
-	TbMoodSuprised,
-	TbMoodSmile,
-	TbMoodHappy,
+type Mood = {
+	label: string
+	icon: IconType
+}
+
+const icons: Mood[] = [
+	{ label: 'Bad', icon: MdMoodBad },
+	{ label: 'Nervous', icon: TbMoodNervous },
+	{ label: 'Emotional', icon: TbMoodCry },
+	{ label: 'Confused', icon: TbMoodConfuzed },
+	{ label: 'Empty', icon: TbMoodEmpty },
+	{ label: 'Suprised', icon: TbMoodSuprised },
+	{ label: 'Happy', icon: TbMoodSmile },
+	{ label: 'Amazing', icon: TbMoodHappy },
 ]
 
 export default function Mood() {
@@ -32,53 +51,76 @@ export default function Mood() {
 		_hover: { color: 'red.900' },
 		cursor: 'pointer',
 	}
-	const [clicked, setClicked] = useState<number>()
-
-	// console.log('<Mood> userData:', userData)
+	const [clicked, setClicked] = useState<Mood>()
 
 	return (
-		<VStack>
-			<Text>How are you feeling today?</Text>
-
-			{(clicked || clicked === 0) && (
+		<VStack spacing={4}>
+			<Box>
 				<HStack>
-					<Text>You clicked</Text>
-					<Icon {...iconProps} as={icons[clicked]} />
-					<Button
-						colorScheme='blue'
-						variant='solid'
-						onClick={() => {
-							const prevMoods = userData.value?.moods ?? []
-							const nextMoods = [
-								...prevMoods,
-								{
-									label: 'no-labels-yet',
-									idx: clicked,
-									timestamp: +new Date(),
-								},
-							]
-							console.log('<Mood> Saving to userData:', userData)
-							userData.set({ ...userData.value, moods: nextMoods })
-						}}
-					>
-						Save
-					</Button>
+					{icons.map((mood, idx) => (
+						<Box key={`icon${idx}`}>
+							<Icon {...iconProps} as={mood.icon} onClick={() => setClicked(mood)} />
+						</Box>
+					))}
 				</HStack>
-			)}
 
-			<HStack>
-				{icons.map((icon, idx) => (
-					<Box key={`icon${idx}`}>
-						<Icon {...iconProps} as={icon} onClick={() => setClicked(idx)} />
-					</Box>
-				))}
-			</HStack>
-
-			<VStack>
+				{!clicked && (
+					<VStack height={250} justify={'center'}>
+						<Tooltip label={'click a face'}>
+							<Button color='red' variant='outline' outlineColor={'pink'}>
+								How are you feeling today?
+							</Button>
+						</Tooltip>
+					</VStack>
+				)}
+				{clicked && (
+					<VStack py={8} height={250} spacing={4}>
+						<Icon {...iconProps} fontSize={'100'} as={clicked.icon} />
+						<Tooltip label={'click to save'}>
+							<Button
+								color='red'
+								variant='outline'
+								outlineColor={'pink'}
+								size={'sm'}
+								onClick={() => {
+									const prevMoods = userData.value?.moods ?? []
+									const nextMoods = [
+										...prevMoods,
+										{
+											label: clicked.label,
+											timestamp: +new Date(),
+											// icon: clicked.icon,
+										},
+									]
+									console.log('<Mood> Saving to userData:', userData)
+									userData.set({ ...userData.value, moods: nextMoods })
+								}}
+							>
+								You are currently feeling {clicked.label}
+							</Button>
+						</Tooltip>
+					</VStack>
+				)}
+			</Box>
+			<Text>You have recently felt:</Text>
+			<SimpleGrid columns={6} flex={1} columnGap={4} rowGap={4}>
 				{userData.value?.moods.map((mood, idx) => (
-					<Text key={`history-${idx}`}>{JSON.stringify(mood, null, '    ')}</Text>
+					// <Text key={`history-${idx}`}>{JSON.stringify(mood.label, null, '    ')}</Text>
+					<Text
+						key={`history-${idx}`}
+						textAlign={'center'}
+						bg={'red.500'}
+						color={'white'}
+						fontWeight={'400'}
+						textTransform={'uppercase'}
+						p={2}
+						borderRadius={'md'}
+					>
+						{' '}
+						{mood.label}
+					</Text>
 				))}
-			</VStack>
+			</SimpleGrid>
 		</VStack>
 	)
 }
