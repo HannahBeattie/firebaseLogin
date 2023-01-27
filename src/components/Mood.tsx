@@ -1,5 +1,10 @@
 import { useUserData } from '@/lib/userData'
 import {
+	Accordion,
+	AccordionButton,
+	AccordionIcon,
+	AccordionItem,
+	AccordionPanel,
 	Box,
 	Button,
 	Container,
@@ -7,6 +12,10 @@ import {
 	Heading,
 	HStack,
 	Icon,
+	Popover,
+	PopoverCloseButton,
+	PopoverContent,
+	PopoverTrigger,
 	SimpleGrid,
 	Stack,
 	TagLabel,
@@ -14,6 +23,7 @@ import {
 	Tooltip,
 	VStack,
 } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { MdMoodBad } from 'react-icons/md'
@@ -32,7 +42,7 @@ type Mood = {
 	icon: IconType
 }
 
-const icons: Mood[] = [
+const moods: Mood[] = [
 	{ label: 'Bad', icon: MdMoodBad },
 	{ label: 'Nervous', icon: TbMoodNervous },
 	{ label: 'Emotional', icon: TbMoodCry },
@@ -51,15 +61,29 @@ export default function Mood() {
 		_hover: { color: 'red.900' },
 		cursor: 'pointer',
 	}
+
+	const historyProps = {
+		fontSize: '5xl',
+		color: 'red',
+		bg: 'pink',
+		borderRadius: '200',
+
+		cursor: 'pointer',
+	}
 	const [clicked, setClicked] = useState<Mood>()
 
 	return (
 		<VStack spacing={4}>
 			<Box>
 				<HStack>
-					{icons.map((mood, idx) => (
+					{moods.map((mood, idx) => (
 						<Box key={`icon${idx}`}>
-							<Icon {...iconProps} as={mood.icon} onClick={() => setClicked(mood)} />
+							<Icon
+								{...iconProps}
+								as={mood.icon}
+								onClick={() => setClicked(mood)}
+								color={mood.label === clicked?.label ? 'red.700' : undefined}
+							/>
 						</Box>
 					))}
 				</HStack>
@@ -103,23 +127,34 @@ export default function Mood() {
 				)}
 			</Box>
 			<Text>You have recently felt:</Text>
+
 			<SimpleGrid columns={6} flex={1} columnGap={4} rowGap={4}>
-				{userData.value?.moods.map((mood, idx) => (
-					// <Text key={`history-${idx}`}>{JSON.stringify(mood.label, null, '    ')}</Text>
-					<Text
-						key={`history-${idx}`}
-						textAlign={'center'}
-						bg={'red.500'}
-						color={'white'}
-						fontWeight={'400'}
-						textTransform={'uppercase'}
-						p={2}
-						borderRadius={'md'}
-					>
-						{' '}
-						{mood.label}
-					</Text>
-				))}
+				{userData.value?.moods.map((moodData, idx) => {
+					const mood = moods.find(({ label }) => label === moodData.label)
+
+					let dateString = moodData.timestamp
+					const formatDate = (dateString: any) => {
+						const options = { year: 'numeric', month: 'long', day: 'numeric' }
+						return new Date(dateString).toLocaleDateString(undefined, options)
+					}
+
+					console.log(formatDate(dateString))
+					let formattedDate = formatDate(dateString)
+
+					return (
+						<VStack key={`history-${idx}`}>
+							{mood ? (
+								<HStack>
+									<Icon {...historyProps} as={mood.icon} />
+									{/* <Text fontSize={'xs'}>{moodData.label}</Text>
+									<Text fontSize={'xs'}>{formattedDate}</Text> */}
+								</HStack>
+							) : (
+								<Text>{moodData.label}</Text>
+							)}
+						</VStack>
+					)
+				})}
 			</SimpleGrid>
 		</VStack>
 	)

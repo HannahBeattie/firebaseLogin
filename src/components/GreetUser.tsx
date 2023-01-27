@@ -25,7 +25,7 @@ export default function GreetUser(props: Props) {
 				<VStack spacing={10}>
 					{url && <Avatar size={'8xl'} src={url} />}
 					<HStack>
-						<Heading> Welcome {name}</Heading>
+						<Heading> Hello {name}!</Heading>
 					</HStack>
 				</VStack>
 			)}

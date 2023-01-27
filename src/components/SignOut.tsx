@@ -1,5 +1,5 @@
 import { getAppAuth } from '@/firebaseConfig'
-import { Button, HStack, Spacer, Text } from '@chakra-ui/react'
+import { Button, HStack, Link, Spacer, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
@@ -12,9 +12,11 @@ export default function SignOut() {
 
 	return (
 		<HStack flex={'1'} px={4}>
-			<Text color={'red'} fontSize={'xl'}>
-				{text}
-			</Text>
+			<Link href={'/'}>
+				<Text color={'red'} fontSize={'xl'}>
+					{text}
+				</Text>
+			</Link>
 			<Spacer />
 			<Button
 				colorScheme={'white'}
