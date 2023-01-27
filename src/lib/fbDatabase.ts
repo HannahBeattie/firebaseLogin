@@ -1,32 +1,49 @@
 import { getDatabase, onValue, ref, set } from 'firebase/database'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 /** `useDbValue` returns the value for a given path in the realtime database,
  * as well as loading and error states and a "set" function to update the value
  * @param {string} dbPath - The "directory-like" path to a resource in the database
  */
-export function useDbValue<T = any>(dbPath: string) {
-	const dbRef = ref(getDatabase(), dbPath)
+export function useDbValue<T = any>(dbPath?: string) {
+	const dbRef = useCallback(() => ref(getDatabase(), dbPath), [dbPath])
 
-	const setFn = async (value: T) => {
-		console.log(`(useDbValue) Setting "${dbPath} to`, value)
-		set(dbRef, value)
-	}
+	const setFn = useCallback(
+		async (value: T) => {
+			if (!dbPath) {
+				throw new Error(`(useDbValue) Can't set a value because dbPath is undefined`)
+			}
+			console.log(`(useDbValue) Setting "${dbPath}" to`, value)
+			set(dbRef(), value)
+		},
+		[dbPath, dbRef]
+	)
 
 	const [resp, setResp] = useState<{
 		value?: T
 		loading: boolean
 		set: typeof setFn
 		error?: Error
+		dbPath?: string
 	}>({
 		loading: true,
 		set: setFn,
+		dbPath,
 	})
 
 	useEffect(() => {
+		setResp((prevResp) => ({ ...prevResp, dbPath, set: setFn }))
+
+		if (!dbPath) {
+			console.log(`(useDbValue) Doing nothing because dbPath is undefined`)
+			return
+		}
+
+		console.log(`(useDbValue) Listening for values at "${dbPath}"`)
+
 		// Subscribe to values for dbPath
 		const unsubscribe = onValue(
-			dbRef,
+			dbRef(),
 			(snap) => {
 				// Got a new value
 				const value = snap.val() // get the value off of the "database snapshot"
@@ -57,7 +74,7 @@ export function useDbValue<T = any>(dbPath: string) {
 			unsubscribe()
 		}
 		/* eslint-disable react-hooks/exhaustive-deps */
-	}, [])
+	}, [dbPath, dbRef, setFn])
 
 	return resp
 }
