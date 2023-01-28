@@ -1,9 +1,10 @@
 import GreetUser from '@/components/GreetUser'
-import { useRedirectIfNotLoggedIn } from '@/components/hooks/UseRedirect'
+import { useRedirectIfNotLoggedIn } from '@/components/hooks/useRedirect'
 import MoodTabs from '@/components/moods/MoodTabs'
 import OfNote from '@/components/OfNote'
 import { useAuthContext } from '@/lib/AuthContext'
-import { VStack } from '@chakra-ui/react'
+import { useUserData } from '@/lib/userData'
+import { Text, VStack } from '@chakra-ui/react'
 
 export default function SignedIn() {
 	useRedirectIfNotLoggedIn()
@@ -11,6 +12,7 @@ export default function SignedIn() {
 	const name = user?.displayName ?? ''
 	const url = user?.photoURL ? user?.photoURL : ''
 	// // console.log('user is:', user?.displayName)
+	const userData = useUserData()
 
 	return (
 		<VStack py={8} flex={'1'} bg={'pink.100'} spacing={8}>

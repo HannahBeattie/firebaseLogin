@@ -1,5 +1,18 @@
 import { MoodData, useUserData } from '@/lib/userData'
-import { Box, Button, HStack, Icon, Tooltip, VStack } from '@chakra-ui/react'
+import {
+	Alert,
+	AlertIcon,
+	AlertTitle,
+	Box,
+	Button,
+	CloseButton,
+	HStack,
+	Icon,
+	Spacer,
+	Tooltip,
+	useDisclosure,
+	VStack,
+} from '@chakra-ui/react'
 import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { MdMoodBad } from 'react-icons/md'
@@ -40,6 +53,7 @@ export default function Mood() {
 	}
 
 	const [clicked, setClicked] = useState<Mood>()
+	const { isOpen: isVisible, onClose, onOpen } = useDisclosure({ defaultIsOpen: false })
 
 	return (
 		<VStack>
@@ -67,13 +81,33 @@ export default function Mood() {
 					</VStack>
 				)}
 				{clicked && (
-					<VStack py={8} height={250} spacing={4}>
+					<VStack py={4} height={250} spacing={4}>
+						{isVisible && (
+							<Alert
+								status='success'
+								bg={'whiteAlpha.600'}
+								borderRadius={'200'}
+								color={'red.600'}
+							>
+								<AlertIcon />
+
+								<AlertTitle> Saved &apos;Feeling {clicked.label}&apos;</AlertTitle>
+								<Spacer />
+								<CloseButton
+									position='relative'
+									onClick={onClose}
+									color={'cyan.300'}
+								/>
+							</Alert>
+						)}
 						<Icon {...iconProps} fontSize={'100'} as={clicked.icon} />
+
 						<Tooltip label={'click to save'}>
 							<Button
 								color='red'
-								variant='outline'
 								outlineColor={'pink'}
+								bg={''}
+								_hover={{ bg: 'whiteAlpha.400' }}
 								size={'sm'}
 								onClick={() => {
 									const newMood: MoodData = {
@@ -91,8 +125,12 @@ export default function Mood() {
 									}
 									const prevMoods = userData.value?.moods ?? []
 									const nextMoods = [...prevMoods, newMood]
+
 									// console.log('<Mood> Saving to userData:', userData)
 									userData.set({ ...userData.value, moods: nextMoods })
+									{
+										onOpen()
+									}
 								}}
 							>
 								You are currently feeling {clicked.label}
