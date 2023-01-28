@@ -11,15 +11,15 @@ export default function SignOut() {
 	const text = name ? `${name}` : 'sign in'
 
 	return (
-		<HStack flex={'1'} px={4}>
+		<HStack flex={'1'} spacing={4}>
 			<Link href={'/'}>
 				<Text color={'red'} fontSize={'xl'}>
 					{text}
 				</Text>
 			</Link>
-			<Spacer />
+
 			<Button
-				colorScheme={'white'}
+				colorScheme={'red'}
 				onClick={() => {
 					router.push('/')
 					auth.signOut()

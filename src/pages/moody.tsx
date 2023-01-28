@@ -1,22 +1,21 @@
 import GreetUser from '@/components/GreetUser'
-import { useRedirectIfNotLoggedIn } from '@/components/hooks/useRedirect'
 import MoodTabs from '@/components/moods/MoodTabs'
-import OfNote from '@/components/OfNote'
 import { useAuthContext } from '@/lib/AuthContext'
 import { useUserData } from '@/lib/userData'
-import { Text, VStack } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
+import React from 'react'
 
-export default function SignedIn() {
-	useRedirectIfNotLoggedIn()
+export default function Moody() {
 	const { user } = useAuthContext()
 	const name = user?.displayName ?? ''
 	const url = user?.photoURL ? user?.photoURL : ''
 
 	const userData = useUserData()
-
 	return (
 		<VStack py={8} flex={'1'} bg={'pink.100'} spacing={8}>
 			<GreetUser url={url} name={name} user={user} />
+
+			<MoodTabs />
 		</VStack>
 	)
 }

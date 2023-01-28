@@ -16,8 +16,11 @@ import {
 import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { MdMoodBad } from 'react-icons/md'
+import { FaRegAngry } from 'react-icons/fa'
+import { TfiFaceSad } from 'react-icons/tfi'
 import {
 	TbMoodConfuzed,
+	TbMoodCrazyHappy,
 	TbMoodCry,
 	TbMoodEmpty,
 	TbMoodHappy,
@@ -25,7 +28,6 @@ import {
 	TbMoodSmile,
 	TbMoodSuprised,
 } from 'react-icons/tb'
-import AllertSave from '../AllertSave'
 
 type Mood = {
 	label: string
@@ -34,11 +36,15 @@ type Mood = {
 
 const moods: Mood[] = [
 	{ label: 'Bad', icon: MdMoodBad },
+	{ label: 'Angry', icon: FaRegAngry },
+	{ label: 'Sad', icon: TfiFaceSad },
 	{ label: 'Nervous', icon: TbMoodNervous },
 	{ label: 'Emotional', icon: TbMoodCry },
 	{ label: 'Confused', icon: TbMoodConfuzed },
 	{ label: 'Empty', icon: TbMoodEmpty },
 	{ label: 'Suprised', icon: TbMoodSuprised },
+	{ label: 'Manic', icon: TbMoodCrazyHappy },
+
 	{ label: 'Happy', icon: TbMoodSmile },
 	{ label: 'Amazing', icon: TbMoodHappy },
 ]

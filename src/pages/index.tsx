@@ -22,4 +22,4 @@ export default function Home() {
 	)
 }
 
-Home.noHeader = true
+Home.noNav = true
