@@ -32,14 +32,14 @@ export default function MoodDates() {
 	const historyProps = {
 		fontSize: { md: '5xl', base: '3xl' },
 		color: 'red',
-		bg: 'pink',
+
 		borderRadius: '200',
 	}
 	const userData = useUserData()
 
 	return (
 		<>
-			<SimpleGrid columns={3} columnGap={4} rowGap={4} alignItems={'stretch'} flex={1}>
+			<VStack alignItems={'stretch'}>
 				{userData.value?.moods.map((moodData, idx) => {
 					const mood = moods.find(({ label }) => label === moodData.label)
 
@@ -53,22 +53,35 @@ export default function MoodDates() {
 					let formattedDate = formatDate(dateString)
 
 					return (
-						<VStack key={`history-${idx}`}>
+						<SimpleGrid key={`history-${idx}`} color={'red'} columns={1}>
 							{mood ? (
-								<HStack flex={1} width={'100%'}>
-									<Icon {...historyProps} as={mood.icon} />
-									<VStack>
-										<Text fontSize={'xs'}>On {formattedDate}</Text>
-										<Text fontSize={'xs'}>You felt: {moodData.label}</Text>
-									</VStack>
-								</HStack>
+								<VStack
+									p={8}
+									bg={'whiteAlpha.400'}
+									alignItems={'stretch'}
+									borderRadius={'lg'}
+									boxShadow={'lg'}
+									fontSize={'lg'}
+									fontWeight={'bold'}
+								>
+									<HStack justifyContent={'space-between'}>
+										<Icon {...historyProps} as={mood.icon} />
+										<VStack alignItems={'stretch'}>
+											<Text fontWeight={'light'}>On {formattedDate}</Text>
+											<HStack>
+												<Text fontWeight={'light'}>You felt:</Text>
+												<Text>{moodData.label}</Text>
+											</HStack>
+										</VStack>
+									</HStack>
+								</VStack>
 							) : (
 								<Text>{moodData.label}</Text>
 							)}
-						</VStack>
+						</SimpleGrid>
 					)
 				})}
-			</SimpleGrid>
+			</VStack>
 		</>
 	)
 }

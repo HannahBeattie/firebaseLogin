@@ -7,7 +7,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, VStack, Container } from '@cha
 export default function MoodTabs() {
 	return (
 		<Container>
-			<Tabs colorScheme={'red'}>
+			<Tabs colorScheme={'red'} color={'red.600'}>
 				<TabList>
 					<Tab>How are you feeling today?</Tab>
 					<Tab>Recent feelings</Tab>

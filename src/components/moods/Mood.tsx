@@ -58,7 +58,8 @@ export default function Mood() {
 
 	const iconProps = {
 		fontSize: { md: '5xl', base: '3xl' },
-		_hover: { color: 'red.900' },
+		color: 'red',
+		_hover: { color: 'red.400' },
 		cursor: 'pointer',
 	}
 
@@ -74,7 +75,7 @@ export default function Mood() {
 								{...iconProps}
 								as={mood.icon}
 								onClick={() => setClicked(mood)}
-								color={mood.label === clicked?.label ? 'red.700' : undefined}
+								color={mood.label === clicked?.label ? 'red' : 'red.200'}
 							/>
 						</Box>
 					))}

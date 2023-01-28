@@ -12,7 +12,7 @@ export default function SignedIn() {
 	// // console.log('user is:', user?.displayName)
 
 	return (
-		<VStack py={8} flex={'1'} bg={'teal.100'} spacing={8}>
+		<VStack py={8} flex={'1'} bg={'pink.100'} spacing={8}>
 			<GreetUser url={url} name={name} user={user} />
 			<MoodTabs />
 		</VStack>

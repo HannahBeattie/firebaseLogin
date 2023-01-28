@@ -32,7 +32,7 @@ export default function YourMoods() {
 	const historyProps = {
 		fontSize: { md: '5xl', base: '3xl' },
 		color: 'red',
-		bg: 'pink',
+
 		borderRadius: '200',
 	}
 	const userData = useUserData()
