@@ -1,8 +1,6 @@
+import { useUserData } from '@/lib/userData'
 import {
-	Alert,
 	ButtonGroup,
-	CheckboxIcon,
-	CloseButton,
 	Editable,
 	EditableInput,
 	EditablePreview,
@@ -16,13 +14,6 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { MdApproval, MdClose, MdEdit } from 'react-icons/md'
-
-type Note = {
-	entryTitle: string
-	entry: string
-}
-
-const notes: Note[] = [{ entryTitle: 'title', entry: 'hello' }]
 
 function EditableControls() {
 	const { isEditing, getSubmitButtonProps, getCancelButtonProps, getEditButtonProps } =
@@ -50,15 +41,29 @@ function EditableControls() {
 }
 
 export default function OfNote() {
+	const userData = useUserData()
 	const [value, setValue] = useState('')
+
 	return (
 		<VStack bg={'whiteAlpha.400'} borderRadius={'lg'} boxShadow={'inner-xl'}>
 			<Editable
 				textAlign='center'
-				defaultValue='of note'
+				defaultValue='Anything you want to say?'
 				fontSize='xl'
 				isPreviewFocusable={false}
-				onSubmit={(e) => console.log('submitted value is:', value)}
+				onSubmit={(e) => {
+					const prevNotes = userData.value?.notes ?? []
+					const nextNotes = [
+						...prevNotes,
+						{
+							entry: value,
+							timestamp: +new Date(),
+						},
+					]
+					console.log('nextNotes:', nextNotes)
+					// console.log('<Note> Saving to userData:', userData)
+					userData.set({ ...userData.value, notes: nextNotes })
+				}}
 			>
 				<HStack p={2} px={4}>
 					<EditableControls />
@@ -71,7 +76,6 @@ export default function OfNote() {
 					onChange={(e) => setValue(e.currentTarget.value)}
 				/>
 			</Editable>
-			<Text> {value}</Text>
 		</VStack>
 	)
 }

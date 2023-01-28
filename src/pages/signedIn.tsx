@@ -15,7 +15,6 @@ export default function SignedIn() {
 	return (
 		<VStack py={8} flex={'1'} bg={'pink.100'} spacing={8}>
 			<GreetUser url={url} name={name} user={user} />
-			<OfNote />
 			<MoodTabs />
 		</VStack>
 	)

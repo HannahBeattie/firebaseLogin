@@ -1,10 +1,7 @@
 import { getAppAuth } from '@/firebaseConfig'
-import { User } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useAuthContext, UserType } from './AuthContext'
 import { useDbValue } from './fbDatabase'
 
-import { IconType } from 'react-icons'
 //
 // Firebase auth data
 //
@@ -35,8 +32,14 @@ export type MoodData = {
 	timestamp: number
 }
 
+export type NoteData = {
+	entry: string
+	timestamp?: number
+}
+
 export type UserData = {
 	moods: MoodData[]
+	notes: NoteData[]
 }
 
 export function useUserData() {

@@ -22,11 +22,10 @@ export default function SignIn() {
 				<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
 			</VStack>
 		)
-	}
-
-	return (
-		<Link href={'/signedIn'}>
-			<Text fontSize={'xl'}>Signed in as: {text}</Text>
-		</Link>
-	)
+	} else
+		return (
+			<Link href={'/signedIn'}>
+				<Text fontSize={'xl'}>Signed in as: {text}</Text>
+			</Link>
+		)
 }
