@@ -25,6 +25,7 @@ import {
 	TbMoodSmile,
 	TbMoodSuprised,
 } from 'react-icons/tb'
+import AllertSave from '../AllertSave'
 
 type Mood = {
 	label: string
