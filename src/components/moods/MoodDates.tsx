@@ -40,47 +40,56 @@ export default function MoodDates() {
 	return (
 		<>
 			<VStack alignItems={'stretch'}>
-				{userData.value?.moods.map((moodData, idx) => {
-					const mood = moods.find(({ label }) => label === moodData.label)
+				{userData.value?.moods
+					.slice(0)
+					.reverse()
+					.map((moodData, idx) => {
+						const mood = moods.find(({ label }) => label === moodData.label)
+						let dateString = moodData.timestamp
+						const formatDate = (dateString: any) => {
+							const options: Intl.DateTimeFormatOptions = {
+								hour: 'numeric',
+								minute: 'numeric',
+								hourCycle: 'h12',
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric',
+							}
+							return new Date(dateString).toLocaleDateString(undefined, options)
+						}
 
-					let dateString = moodData.timestamp
-					const formatDate = (dateString: any) => {
-						const options = { year: 'numeric', month: 'long', day: 'numeric' }
-						return new Date(dateString).toLocaleDateString(undefined, options)
-					}
+						// console.log(formatDate(dateString))
+						let formattedDate = formatDate(dateString)
 
-					// console.log(formatDate(dateString))
-					let formattedDate = formatDate(dateString)
-
-					return (
-						<SimpleGrid key={`history-${idx}`} color={'red'} columns={1}>
-							{mood ? (
-								<VStack
-									p={8}
-									bg={'whiteAlpha.400'}
-									alignItems={'stretch'}
-									borderRadius={'lg'}
-									boxShadow={'lg'}
-									fontSize={'lg'}
-									fontWeight={'bold'}
-								>
-									<HStack justifyContent={'space-between'}>
-										<Icon {...historyProps} as={mood.icon} />
-										<VStack alignItems={'stretch'}>
-											<Text fontWeight={'light'}>On {formattedDate}</Text>
-											<HStack>
-												<Text fontWeight={'light'}>You felt:</Text>
-												<Text>{moodData.label}</Text>
-											</HStack>
-										</VStack>
-									</HStack>
-								</VStack>
-							) : (
-								<Text>{moodData.label}</Text>
-							)}
-						</SimpleGrid>
-					)
-				})}
+						return (
+							<SimpleGrid key={`history-${idx}`} color={'red'} columns={1}>
+								{mood ? (
+									<VStack
+										p={8}
+										bg={'whiteAlpha.400'}
+										alignItems={'stretch'}
+										borderRadius={'lg'}
+										boxShadow={'lg'}
+										fontSize={'lg'}
+										fontWeight={'bold'}
+									>
+										<HStack justifyContent={'space-between'}>
+											<Icon {...historyProps} as={mood.icon} />
+											<VStack alignItems={'stretch'}>
+												<Text fontWeight={'light'}>On {formattedDate}</Text>
+												<HStack>
+													<Text fontWeight={'light'}>You felt:</Text>
+													<Text>{moodData.label}</Text>
+												</HStack>
+											</VStack>
+										</HStack>
+									</VStack>
+								) : (
+									<Text>{moodData.label}</Text>
+								)}
+							</SimpleGrid>
+						)
+					})}
 			</VStack>
 		</>
 	)

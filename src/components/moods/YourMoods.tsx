@@ -40,21 +40,24 @@ export default function YourMoods() {
 	return (
 		<>
 			<SimpleGrid columns={8} columnGap={4} rowGap={4}>
-				{userData.value?.moods.map((moodData, idx) => {
-					const mood = moods.find(({ label }) => label === moodData.label)
+				{userData.value?.moods
+					.slice(0)
+					.reverse()
+					.map((moodData, idx) => {
+						const mood = moods.find(({ label }) => label === moodData.label)
 
-					return (
-						<VStack key={`history-${idx}`}>
-							{mood ? (
-								<HStack>
-									<Icon {...historyProps} as={mood.icon} />
-								</HStack>
-							) : (
-								<Text>{moodData.label}</Text>
-							)}
-						</VStack>
-					)
-				})}
+						return (
+							<VStack key={`history-${idx}`}>
+								{mood ? (
+									<HStack>
+										<Icon {...historyProps} as={mood.icon} />
+									</HStack>
+								) : (
+									<Text>{moodData.label}</Text>
+								)}
+							</VStack>
+						)
+					})}
 			</SimpleGrid>
 		</>
 	)
