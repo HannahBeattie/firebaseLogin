@@ -12,7 +12,7 @@ export default function SignIn() {
 	const text = name ? `Hello ${name}` : 'sign in'
 
 	if (loading) {
-		return <Text>...</Text>
+		return <Text fontSize={'8xl'}>...</Text>
 	}
 
 	if (!user) {
@@ -26,7 +26,7 @@ export default function SignIn() {
 
 	return (
 		<Link href={'/signedIn'}>
-			<Text>{text}</Text>
+			<Text fontSize={'xl'}>Signed in as: {text}</Text>
 		</Link>
 	)
 }
