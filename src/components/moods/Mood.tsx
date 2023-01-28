@@ -57,23 +57,15 @@ export default function Mood() {
 	const userData = useUserData()
 
 	const iconProps = {
-		fontSize: '5xl',
+		fontSize: { md: '5xl', base: '3xl' },
 		_hover: { color: 'red.900' },
 		cursor: 'pointer',
 	}
 
-	const historyProps = {
-		fontSize: '5xl',
-		color: 'red',
-		bg: 'pink',
-		borderRadius: '200',
-
-		cursor: 'pointer',
-	}
 	const [clicked, setClicked] = useState<Mood>()
 
 	return (
-		<VStack spacing={4}>
+		<VStack>
 			<Box>
 				<HStack>
 					{moods.map((mood, idx) => (
@@ -126,36 +118,6 @@ export default function Mood() {
 					</VStack>
 				)}
 			</Box>
-			<Text>You have recently felt:</Text>
-
-			<SimpleGrid columns={6} flex={1} columnGap={4} rowGap={4}>
-				{userData.value?.moods.map((moodData, idx) => {
-					const mood = moods.find(({ label }) => label === moodData.label)
-
-					let dateString = moodData.timestamp
-					const formatDate = (dateString: any) => {
-						const options = { year: 'numeric', month: 'long', day: 'numeric' }
-						return new Date(dateString).toLocaleDateString(undefined, options)
-					}
-
-					console.log(formatDate(dateString))
-					let formattedDate = formatDate(dateString)
-
-					return (
-						<VStack key={`history-${idx}`}>
-							{mood ? (
-								<HStack>
-									<Icon {...historyProps} as={mood.icon} />
-									{/* <Text fontSize={'xs'}>{moodData.label}</Text>
-									<Text fontSize={'xs'}>{formattedDate}</Text> */}
-								</HStack>
-							) : (
-								<Text>{moodData.label}</Text>
-							)}
-						</VStack>
-					)
-				})}
-			</SimpleGrid>
 		</VStack>
 	)
 }

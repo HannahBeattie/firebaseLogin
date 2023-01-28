@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<AuthProvider>
 			<ChakraProvider>
-				<VStack minH={'100vh'} alignItems={'stretch'} spacing={0}>
+				<VStack flex={1} minW={'100vw'} minH={'100vh'} spacing={0} alignItems={'stretch'}>
 					{!(Component as any).noHeader && <Header />}
 					<Component {...pageProps} />
 				</VStack>

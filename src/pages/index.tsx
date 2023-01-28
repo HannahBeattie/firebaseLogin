@@ -1,6 +1,6 @@
 import HulloDatabase from '@/components/HulloDatabase'
 import SignIn from '@/components/SignIn'
-import { Heading, Image, Spacer, Text, VStack } from '@chakra-ui/react'
+import { Heading, Image, Spacer, VStack } from '@chakra-ui/react'
 import Head from 'next/head'
 
 export default function Home() {
@@ -14,11 +14,8 @@ export default function Home() {
 			</Head>
 			<VStack flex={1} bg={'pink.200'} color={'red'} pt={16} spacing={8}>
 				<Heading fontSize={'8xl'}>Welcome</Heading>
-
 				<SignIn />
-
 				<HulloDatabase />
-
 				<Spacer />
 				<Image src={'/ground.png'} alt={'An image of a grassy hill'} />
 			</VStack>
