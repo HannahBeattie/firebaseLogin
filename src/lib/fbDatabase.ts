@@ -13,7 +13,7 @@ export function useDbValue<T = any>(dbPath?: string) {
 			if (!dbPath) {
 				throw new Error(`(useDbValue) Can't set a value because dbPath is undefined`)
 			}
-			console.log(`(useDbValue) Setting "${dbPath}" to`, value)
+			// console.log(`(useDbValue) Setting "${dbPath}" to`, value)
 			set(dbRef(), value)
 		},
 		[dbPath, dbRef]
@@ -39,7 +39,7 @@ export function useDbValue<T = any>(dbPath?: string) {
 			return
 		}
 
-		console.log(`(useDbValue) Listening for values at "${dbPath}"`)
+		// console.log(`(useDbValue) Listening for values at "${dbPath}"`)
 
 		// Subscribe to values for dbPath
 		const unsubscribe = onValue(
@@ -47,7 +47,7 @@ export function useDbValue<T = any>(dbPath?: string) {
 			(snap) => {
 				// Got a new value
 				const value = snap.val() // get the value off of the "database snapshot"
-				console.log(`(useDbValue) New value for "${dbPath}":`, value)
+				// console.log(`(useDbValue) New value for "${dbPath}":`, value)
 				setResp((prevResp) => ({
 					...prevResp,
 					value,
@@ -70,7 +70,7 @@ export function useDbValue<T = any>(dbPath?: string) {
 		// using this hook is "dismounted" (no longer being rendered) — we unsubscribe
 		// from listening to changes to the database
 		return () => {
-			console.log(`(useDbValue) Unsubscribing from value for "${dbPath}"`)
+			// console.log(`(useDbValue) Unsubscribing from value for "${dbPath}"`)
 			unsubscribe()
 		}
 		/* eslint-disable react-hooks/exhaustive-deps */

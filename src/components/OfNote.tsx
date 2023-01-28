@@ -1,4 +1,5 @@
 import {
+	Alert,
 	ButtonGroup,
 	CheckboxIcon,
 	CloseButton,
@@ -9,10 +10,12 @@ import {
 	HStack,
 	IconButton,
 	Input,
+	Text,
 	useEditableControls,
 	VStack,
 } from '@chakra-ui/react'
-import { MdApproval, MdEdit } from 'react-icons/md'
+import { useState } from 'react'
+import { MdApproval, MdClose, MdEdit } from 'react-icons/md'
 
 type Note = {
 	entryTitle: string
@@ -26,17 +29,13 @@ function EditableControls() {
 		useEditableControls()
 
 	return isEditing ? (
-		<ButtonGroup justifyContent='center' size='sm' color={'red'}>
+		<ButtonGroup justifyContent='center' color={'red'}>
 			<IconButton
 				aria-label='icon button'
 				icon={<MdApproval />}
 				{...getSubmitButtonProps()}
 			/>
-			<IconButton
-				aria-label='icon button'
-				icon={<CloseButton />}
-				{...getCancelButtonProps()}
-			/>
+			<IconButton aria-label='icon button' icon={<MdClose />} {...getCancelButtonProps()} />
 		</ButtonGroup>
 	) : (
 		<Flex justifyContent='center' color={'red'}>
@@ -51,6 +50,7 @@ function EditableControls() {
 }
 
 export default function OfNote() {
+	const [value, setValue] = useState('')
 	return (
 		<VStack bg={'whiteAlpha.400'} borderRadius={'lg'} boxShadow={'inner-xl'}>
 			<Editable
@@ -58,13 +58,20 @@ export default function OfNote() {
 				defaultValue='of note'
 				fontSize='xl'
 				isPreviewFocusable={false}
+				onSubmit={(e) => console.log('submitted value is:', value)}
 			>
 				<HStack p={2} px={4}>
 					<EditableControls />
 					<EditablePreview bg={'gray.100'} px={2} color={'red.400'} />
 				</HStack>
-				<Input color={'red'} as={EditableInput} />
+				<Input
+					color={'red'}
+					as={EditableInput}
+					value={value}
+					onChange={(e) => setValue(e.currentTarget.value)}
+				/>
 			</Editable>
+			<Text> {value}</Text>
 		</VStack>
 	)
 }

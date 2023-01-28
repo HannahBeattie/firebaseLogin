@@ -49,7 +49,7 @@ export default function MoodDates() {
 						return new Date(dateString).toLocaleDateString(undefined, options)
 					}
 
-					console.log(formatDate(dateString))
+					// console.log(formatDate(dateString))
 					let formattedDate = formatDate(dateString)
 
 					return (

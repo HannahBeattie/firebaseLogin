@@ -85,7 +85,7 @@ export default function Mood() {
 											// icon: clicked.icon,
 										},
 									]
-									console.log('<Mood> Saving to userData:', userData)
+									// console.log('<Mood> Saving to userData:', userData)
 									userData.set({ ...userData.value, moods: nextMoods })
 								}}
 							>

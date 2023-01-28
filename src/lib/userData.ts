@@ -44,6 +44,6 @@ export function useUserData() {
 	const [user] = useAuthState(getAppAuth())
 	const id = user?.uid
 	const dbPath = id ? `users/${id}` : undefined
-	console.log(`(useUserData) dbPath=${dbPath}`)
+	// console.log(`(useUserData) dbPath=${dbPath}`)
 	return useDbValue<UserData>(dbPath)
 }
