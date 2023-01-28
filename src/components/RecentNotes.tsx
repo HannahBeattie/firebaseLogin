@@ -1,6 +1,10 @@
 import { useUserData } from '@/lib/userData'
 import { HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 
+type typeTest = {
+	justSpecificWords: 'just' | 'specific' | 'words'
+}
+
 export default function RecentNotes() {
 	const userData = useUserData()
 
@@ -10,7 +14,11 @@ export default function RecentNotes() {
 				{userData.value?.notes?.map((noteData, idx) => {
 					let dateString = noteData.timestamp
 					const formatDate = (dateString: any) => {
-						const options = { year: 'numeric', month: 'long', day: 'numeric' }
+						const options: Intl.DateTimeFormatOptions = {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+						}
 						return new Date(dateString).toLocaleDateString(undefined, options)
 					}
 

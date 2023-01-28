@@ -1,4 +1,4 @@
-import { useUserData } from '@/lib/userData'
+import { NoteData, useUserData } from '@/lib/userData'
 import {
 	ButtonGroup,
 	Editable,
@@ -52,14 +52,20 @@ export default function OfNote() {
 				fontSize='xl'
 				isPreviewFocusable={false}
 				onSubmit={(e) => {
+					const newNote: NoteData = {
+						entry: value,
+						timestamp: +new Date(),
+					}
+					if (!userData.value) {
+						// console.log('First note for new user!', newNote)
+						userData.set({
+							moods: [],
+							notes: [newNote],
+						})
+						return
+					}
 					const prevNotes = userData.value?.notes ?? []
-					const nextNotes = [
-						...prevNotes,
-						{
-							entry: value,
-							timestamp: +new Date(),
-						},
-					]
+					const nextNotes = [...prevNotes, newNote]
 					console.log('nextNotes:', nextNotes)
 					// console.log('<Note> Saving to userData:', userData)
 					userData.set({ ...userData.value, notes: nextNotes })

@@ -1,4 +1,4 @@
-import { useUserData } from '@/lib/userData'
+import { MoodData, useUserData } from '@/lib/userData'
 import { Box, Button, HStack, Icon, Tooltip, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { IconType } from 'react-icons'
@@ -76,15 +76,21 @@ export default function Mood() {
 								outlineColor={'pink'}
 								size={'sm'}
 								onClick={() => {
+									const newMood: MoodData = {
+										label: clicked.label,
+										timestamp: +new Date(),
+									}
+
+									if (!userData.value) {
+										// console.log('First mood for new user!', newMood)
+										userData.set({
+											moods: [newMood],
+											notes: [],
+										})
+										return
+									}
 									const prevMoods = userData.value?.moods ?? []
-									const nextMoods = [
-										...prevMoods,
-										{
-											label: clicked.label,
-											timestamp: +new Date(),
-											// icon: clicked.icon,
-										},
-									]
+									const nextMoods = [...prevMoods, newMood]
 									// console.log('<Mood> Saving to userData:', userData)
 									userData.set({ ...userData.value, moods: nextMoods })
 								}}
