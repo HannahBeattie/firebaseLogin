@@ -1,29 +1,5 @@
 import { useUserData } from '@/lib/userData'
-import {
-	Accordion,
-	AccordionButton,
-	AccordionIcon,
-	AccordionItem,
-	AccordionPanel,
-	Box,
-	Button,
-	Container,
-	Grid,
-	Heading,
-	HStack,
-	Icon,
-	Popover,
-	PopoverCloseButton,
-	PopoverContent,
-	PopoverTrigger,
-	SimpleGrid,
-	Stack,
-	TagLabel,
-	Text,
-	Tooltip,
-	VStack,
-} from '@chakra-ui/react'
-import { motion } from 'framer-motion'
+import { Box, Button, HStack, Icon, Tooltip, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { MdMoodBad } from 'react-icons/md'
