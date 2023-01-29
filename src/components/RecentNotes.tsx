@@ -1,6 +1,9 @@
 import { useUserData } from '@/lib/userData'
 import { HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 
+import { format, parseISO } from 'date-fns'
+import DateFormatter from './DateFormatter'
+
 export default function RecentNotes() {
 	const userData = useUserData()
 
@@ -12,21 +15,25 @@ export default function RecentNotes() {
 					.reverse()
 					.map((noteData, idx) => {
 						let dateString = noteData.timestamp
-						const formatDate = (dateString: any) => {
-							const options: Intl.DateTimeFormatOptions = {
-								hour: 'numeric',
-								minute: 'numeric',
-								hourCycle: 'h12',
-								year: 'numeric',
-								month: 'long',
-								day: 'numeric',
-							}
-							return new Date(dateString).toLocaleDateString(undefined, options)
-						}
 
-						// console.log(formatDate(dateString))
-						let formattedDate = formatDate(dateString)
+						// const formatDate = (dateString: any) => {
+						// 	const options: Intl.DateTimeFormatOptions = {
+						// 		hour: 'numeric',
+						// 		minute: 'numeric',
+						// 		hourCycle: 'h12',
+						// 		year: 'numeric',
+						// 		month: 'long',
+						// 		day: 'numeric',
+						// 	}
+						// 	return new Date(dateString).toLocaleDateString(undefined, options)
+						// }
 
+						// // console.log(formatDate(dateString))
+						// let formattedDate = formatDate(dateString)
+
+						// {
+						// 	dateString && console.log(format(dateString, 'dd MMMM yyyy HH:mm'))
+						// }
 						return (
 							<SimpleGrid key={`history-${idx}`} color={'red'} columns={1}>
 								<VStack
@@ -40,8 +47,8 @@ export default function RecentNotes() {
 								>
 									<HStack justifyContent={'space-between'}>
 										<VStack alignItems={'stretch'}>
-											<Text fontWeight={'light'}> {formattedDate}</Text>
 											<HStack>
+												<DateFormatter dateString={dateString} />
 												<Text>{noteData.entry}</Text>
 											</HStack>
 										</VStack>
