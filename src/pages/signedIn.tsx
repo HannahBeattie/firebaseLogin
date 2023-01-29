@@ -1,5 +1,6 @@
 import GreetUser from '@/components/GreetUser'
 import { useRedirectIfNotLoggedIn } from '@/components/hooks/useRedirect'
+import Del from '@/components/moods/Del'
 import MoodTabs from '@/components/moods/MoodTabs'
 import OfNote from '@/components/OfNote'
 import { useAuthContext } from '@/lib/AuthContext'
@@ -17,6 +18,7 @@ export default function SignedIn() {
 	return (
 		<VStack py={8} flex={'1'} bg={'pink.100'} spacing={8}>
 			<GreetUser url={url} name={name} user={user} />
+			<Del />
 		</VStack>
 	)
 }
