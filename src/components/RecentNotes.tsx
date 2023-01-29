@@ -16,24 +16,6 @@ export default function RecentNotes() {
 					.map((noteData, idx) => {
 						let dateString = noteData.timestamp
 
-						// const formatDate = (dateString: any) => {
-						// 	const options: Intl.DateTimeFormatOptions = {
-						// 		hour: 'numeric',
-						// 		minute: 'numeric',
-						// 		hourCycle: 'h12',
-						// 		year: 'numeric',
-						// 		month: 'long',
-						// 		day: 'numeric',
-						// 	}
-						// 	return new Date(dateString).toLocaleDateString(undefined, options)
-						// }
-
-						// // console.log(formatDate(dateString))
-						// let formattedDate = formatDate(dateString)
-
-						// {
-						// 	dateString && console.log(format(dateString, 'dd MMMM yyyy HH:mm'))
-						// }
 						return (
 							<SimpleGrid key={`history-${idx}`} color={'red'} columns={1}>
 								<VStack
@@ -47,10 +29,10 @@ export default function RecentNotes() {
 								>
 									<HStack justifyContent={'space-between'}>
 										<VStack alignItems={'stretch'}>
-											<HStack>
+											<VStack flex={1} alignItems={'stretch'}>
 												<DateFormatter dateString={dateString} />
 												<Text>{noteData.entry}</Text>
-											</HStack>
+											</VStack>
 										</VStack>
 									</HStack>
 								</VStack>

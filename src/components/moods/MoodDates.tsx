@@ -11,6 +11,7 @@ import {
 	TbMoodSmile,
 	TbMoodSuprised,
 } from 'react-icons/tb'
+import DateFormatter from '../DateFormatter'
 
 type Mood = {
 	label: string
@@ -36,6 +37,14 @@ export default function MoodDates() {
 		borderRadius: '200',
 	}
 	const userData = useUserData()
+	const cardProps = {
+		p: 8,
+		bg: 'whiteAlpha.400',
+		alignItems: 'stretch',
+		borderRadius: 'lg',
+		boxShadow: 'lg',
+		fontWeight: 'bold',
+	}
 
 	return (
 		<>
@@ -46,36 +55,15 @@ export default function MoodDates() {
 					.map((moodData, idx) => {
 						const mood = moods.find(({ label }) => label === moodData.label)
 						let dateString = moodData.timestamp
-						const formatDate = (dateString: any) => {
-							const options: Intl.DateTimeFormatOptions = {
-								hour: 'numeric',
-								minute: 'numeric',
-								hourCycle: 'h12',
-								year: 'numeric',
-								month: 'long',
-								day: 'numeric',
-							}
-							return new Date(dateString).toLocaleDateString(undefined, options)
-						}
-
-						let formattedDate = formatDate(dateString)
 
 						return (
 							<SimpleGrid key={`history-${idx}`} color={'red'} columns={1}>
 								{mood ? (
-									<VStack
-										p={8}
-										bg={'whiteAlpha.400'}
-										alignItems={'stretch'}
-										borderRadius={'lg'}
-										boxShadow={'lg'}
-										fontSize={'lg'}
-										fontWeight={'bold'}
-									>
+									<VStack {...cardProps}>
 										<HStack justifyContent={'space-between'}>
 											<Icon {...historyProps} as={mood.icon} />
 											<VStack alignItems={'stretch'}>
-												<Text fontWeight={'light'}>On {formattedDate}</Text>
+												<DateFormatter dateString={dateString} />
 												<HStack>
 													<Text fontWeight={'light'}>You felt:</Text>
 													<Text>{moodData.label}</Text>

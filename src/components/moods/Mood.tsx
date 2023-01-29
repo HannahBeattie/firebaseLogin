@@ -36,8 +36,7 @@ type Mood = {
 
 const moods: Mood[] = [
 	{ label: 'Bad', icon: MdMoodBad },
-	{ label: 'Angry', icon: FaRegAngry },
-	{ label: 'Sad', icon: TfiFaceSad },
+
 	{ label: 'Nervous', icon: TbMoodNervous },
 	{ label: 'Emotional', icon: TbMoodCry },
 	{ label: 'Confused', icon: TbMoodConfuzed },
